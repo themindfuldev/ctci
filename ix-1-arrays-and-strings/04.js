@@ -37,15 +37,7 @@ function isPalindromePermutation2(string) {
         oddOccurrences ^= 1 << charCode;
     }
 
-    const hasMiddle = sanitized.length % 2 === 1;
-    if (!hasMiddle) {
-        return oddOccurrences === 0;
-    }
-    else {
-        return (oddOccurrences & oddOccurrences - 1) === 0;
-    }
-
-    return true;
+    return (oddOccurrences & oddOccurrences - 1) === 0;
 }
 
 console.log('Bit vector approach');
