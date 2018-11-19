@@ -2,30 +2,22 @@
 function isPalindromePermutation1(string) {
     const sanitized = string.replace(/\s/g, '').toLowerCase();
 
-    const frequency = {};
+    const oddOccurrences = {};
     for (const char of sanitized) {
-        frequency[char] = frequency[char]+1 || 1;
+        oddOccurrences[char] = !oddOccurrences[char];
     }
     
     const hasMiddle = sanitized.length % 2 === 1;
-    if (hasMiddle) {
-        let hasFoundMiddle = false;
-        for (const value of Object.values(frequency)) {
-            if (value % 2 !== 0) {
-                if (hasFoundMiddle) {
-                    return false;
-                }
-                hasFoundMiddle = true;
-            }
-        }
-    }
-    else {
-        for (const value of Object.values(frequency)) {
-            if (value % 2 !== 0) {
+    let hasFoundMiddle = false;
+    for (const isOdd of Object.values(oddOccurrences)) {
+        if (isOdd) {
+            if (!hasMiddle || hasFoundMiddle) {
                 return false;
             }
+            hasFoundMiddle = true;
         }
     }
+
     return true;
 }
 
@@ -34,34 +26,25 @@ console.log(isPalindromePermutation1('Tact Coa'));
 console.log(isPalindromePermutation1('Tacot Coa'));
 console.log(isPalindromePermutation1('Jane got a gun'));
 
-/*
 // Bit vector approach, if restricted to a-z O(n) time and O(1) space
 function isPalindromePermutation2(string) {
     const sanitized = string.replace(/\s/g, '').toLowerCase();
 
-    let vector = 0;
+    let oddOccurrences = 0;
+    const initialCode = 'a'.charCodeAt(0);
     for (const char of sanitized) {
-        frequency[char] = frequency[char] + 1 || 1;
+        const charCode = char.charCodeAt(0) - initialCode;
+        oddOccurrences ^= 1 << charCode;
     }
 
-    if (sanitized.length % 2 === 0) {
-        for (const [key, value] of Object.entries(frequency)) {
-            if (value % 2 !== 0) {
-                return false;
-            }
-        }
+    const hasMiddle = sanitized.length % 2 === 1;
+    if (!hasMiddle) {
+        return oddOccurrences === 0;
     }
     else {
-        let hasFoundMiddle = false;
-        for (const [key, value] of Object.entries(frequency)) {
-            if (value % 2 !== 0) {
-                if (hasFoundMiddle) {
-                    return false;
-                }
-                hasFoundMiddle = true;
-            }
-        }
+        return Number.isInteger(Math.log2(oddOccurrences));
     }
+
     return true;
 }
 
@@ -69,4 +52,3 @@ console.log('Bit vector approach');
 console.log(isPalindromePermutation2('Tact Coa'));
 console.log(isPalindromePermutation2('Tacot Coa'));
 console.log(isPalindromePermutation2('Jane got a gun'));
-*/
