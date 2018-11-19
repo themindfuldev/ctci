@@ -1,7 +1,7 @@
-// Using a Hash Table, O(n)
+// Using a Hash Table, O(n) time and O(n) space
 function isUnique1(string) {
     const existence = {};
-    for (char of string) {
+    for (const char of string) {
         if (existence[char]) {
             return false;
         }
@@ -16,7 +16,7 @@ console.log(isUnique1('tiago'));
 console.log(isUnique1('cintia'));
 
 
-// Making brute-force search, O(n^2)
+// Making brute-force search, O(n^2) time and O(1) space
 function isUnique2(string) {
     const length = string.length;
     for (let i = 0; i < length; i++) {
@@ -36,7 +36,7 @@ console.log(isUnique2('tiago'));
 console.log(isUnique2('cintia'));
 
 
-// Using sort approach, O(n lg n)
+// Using sort approach, O(n lg n) and O(1) space
 function isUnique3(string) {
     const sortedString = string.split('').sort().join('');
 
@@ -54,12 +54,12 @@ console.log(isUnique3('tiago'));
 console.log(isUnique3('cintia'));
 
 
-// Using a bit vector if restricted to a-z, O(n)
+// Using a bit vector if restricted to a-z, O(n) time and O(1) space
 function isUnique4(string) {
     const initialCode = 'a'.charCodeAt(0);
     let vector = 0;
 
-    for (char of string) {
+    for (const char of string) {
         const charCode = char.charCodeAt(0) - initialCode;
         if (vector & (1 << charCode) !== 0) {
             return false;
