@@ -42,7 +42,7 @@ function isPalindromePermutation2(string) {
         return oddOccurrences === 0;
     }
     else {
-        return Number.isInteger(Math.log2(oddOccurrences));
+        return (oddOccurrences & oddOccurrences - 1) === 0;
     }
 
     return true;
