@@ -72,6 +72,10 @@ const findLeastSignificantZeroPositions = number => {
         }        
     }
 
+    if (!~nextLargestIndex) {
+        nextLargestIndex = binary.indexOf('1');
+    }
+
     return { 
         nextSmallestPosition: ~nextSmallestIndex ? length - nextSmallestIndex - 1 : -1, 
         nextLargestPosition: ~nextLargestIndex ? length - nextLargestIndex - 1 : -1 
@@ -87,16 +91,7 @@ const getNextNumbers = number => {
         response.smallest = `${smallest} (${smallest.toString(2)})`;
     }
 
-    let largest;
-    if (~nextLargestPosition) {
-        largest = number ^ (0b11 << nextLargestPosition);
-    }
-    else {
-        const binary = number.toString(2);
-        const mostSignificantOnePosition = binary.length - binary.indexOf('1') - 1;
-
-        largest = number ^ (0b11 << mostSignificantOnePosition);        
-    }
+    const largest = number ^ (0b11 << nextLargestPosition);    
     response.largest = `${largest} (${largest.toString(2)})`;
 
     return response;
