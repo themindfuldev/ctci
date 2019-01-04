@@ -1,36 +1,5 @@
 /*
 11011 -> 10111 and 11101
-
-const findLeastSignificantZeroPositions = number => {
-    let smallestPosition = -1, largestPosition = -1;
-    let currentPosition = 0;
-
-    let isLastDigitAZero = false;
-    while (number > 0 && largestPosition === -1) {
-        const currentDigit = number & 1;
-        if (currentDigit === 0) {
-            isLastDigitAZero = true;
-        }
-        else {
-            if (isLastDigitAZero) {
-                if (smallestPosition === -1) {
-                    smallestPosition = currentPosition - 1;
-                    if (smallestPosition > 0) {
-                        largestPosition = smallestPosition - 1;
-                    }
-                }
-                else {
-                    largestPosition = currentPosition - 2;
-                }
-                isLastDigitAZero = false;
-            }
-        }
-        number >>= 1;
-        currentPosition++;
-    }
-
-    return { smallestPosition, largestPosition };
-}
 */
 
 const findLeastSignificantZeroPositions = number => {
@@ -108,7 +77,6 @@ const getNextNumbers = number => {
             currentIndex++;
         } 
 
-
     }
     response.largest = `${largest} (${largest.toString(2)})`;
 
@@ -120,3 +88,4 @@ console.log(`${0b11010} (11010) ->`, getNextNumbers(0b11010));
 console.log(`${0b11111} (11111) ->`, getNextNumbers(0b11111));
 console.log(`${0b11000} (11000) ->`, getNextNumbers(0b11000));
 console.log(`${0b10001} (10001) ->`, getNextNumbers(0b10001));
+console.log(`${0b11011001111100} (11011001111100) ->`, getNextNumbers(0b11011001111100));
