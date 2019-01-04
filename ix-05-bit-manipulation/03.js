@@ -19,7 +19,7 @@ const getOneSequences = number => {
             currentSequence = 0;
         }
 
-        number >>= 1;
+        number >>>= 1;
     }
     if (currentSequence > 0) {
         oneSequences.push(currentSequence);
@@ -31,15 +31,18 @@ const getOneSequences = number => {
 const getLongestSequenceOfOnesUsingOneBitFlip = number => {
     const oneSequences = getOneSequences(number);
     const summedSequences = oneSequences.map((sequence, i, sequences) => {        
-        return i > 0 ? sequence + sequences[i-1] + 1 : undefined;
-    }).slice(1);
-    const maxSequence = summedSequences.reduce((max, seq) => Math.max(max, seq), Number.NEGATIVE_INFINITY);
+        return i > 0 ? sequence + sequences[i-1] + 1 : sequence;
+    });
+    const maxSequence = summedSequences.length > 1 ?
+        summedSequences.slice(1).reduce((max, seq) => Math.max(max, seq), Number.NEGATIVE_INFINITY) :
+        summedSequences[0];
     return maxSequence;
 };
 
 console.log(getLongestSequenceOfOnesUsingOneBitFlip(0b11011101111)); 
 console.log(getLongestSequenceOfOnesUsingOneBitFlip(0b10010001110)); 
 console.log(getLongestSequenceOfOnesUsingOneBitFlip(0b11001001010)); 
+console.log(getLongestSequenceOfOnesUsingOneBitFlip(0b11111111111111111111111111111111)); 
 
 // Using last sequence, O(1) space
 const getLongestSequenceOfOnesUsingOneBitFlip2 = number => {
@@ -69,4 +72,5 @@ const getLongestSequenceOfOnesUsingOneBitFlip2 = number => {
 
 console.log(getLongestSequenceOfOnesUsingOneBitFlip2(0b11011101111)); 
 console.log(getLongestSequenceOfOnesUsingOneBitFlip2(0b10010001110)); 
-console.log(getLongestSequenceOfOnesUsingOneBitFlip2(0b11001001010)); 
+console.log(getLongestSequenceOfOnesUsingOneBitFlip2(0b11001001010));
+console.log(getLongestSequenceOfOnesUsingOneBitFlip2(0b11111111111111111111111111111111)); 
